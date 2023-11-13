@@ -23,10 +23,10 @@ TEST(GivensRotations, SolveSystemTest) {
     auto b = TVector<double>::CreateRandom(size);
     TVector<double> x(b.GetSize());
     x.Nullify();
-    NGivensRotations::SolveSystem(a, b, x);
+    EXPECT_TRUE(NGivensRotations::SolveSystem(a, b, x));
+    ASSERT_TRUE(TMatrix<double>::IsTriangular(a, ETriangularType::Upper));
     TVector<double> res = a * x;
-    ASSERT_TRUE(RoughEq(TVector<double>::Norm2(res - b), 0));
-    // std::cout << a << std::endl;
+    ASSERT_TRUE(RoughEq(TVector<double>::Norm2(res - b), 0.0, 1e-3));
 }
 
 int main(int argc, char** argv) {

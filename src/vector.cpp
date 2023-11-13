@@ -3,6 +3,7 @@
 #include "vector.h"
 
 #include <cmath>
+#include <cstdlib>
 #include <ctime>
 
 template <typename T>
@@ -152,7 +153,8 @@ TVector<T> TVector<T>::CreateRandom(const size_t size) {
     std::srand(std::time(nullptr));
     TVector<T> v(size);
     for (size_t i = 0; i < size; ++i) {
-        v(i) = std::rand();
+        int tmp = std::rand();
+        v(i) = static_cast<double>(tmp) / RAND_MAX * std::pow(-1, (tmp & 1));
     }
     return v;
 }

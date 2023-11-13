@@ -19,8 +19,9 @@ namespace NGivensRotations {
             const T c1 = elem1 / denum;
             const T c2 = elem2 / denum;
             for (size_t j = colIdx; j < aSize; ++j) {
+                auto tmp = a(rowIdx1, j);
                 a(rowIdx1, j) = c1 * a(rowIdx1, j) + c2 * a(rowIdx2, j);
-                a(rowIdx2, j) = -(c2 * a(rowIdx1, j)) + c1 * a(rowIdx2, j);
+                a(rowIdx2, j) = -(c2 * tmp) + c1 * a(rowIdx2, j);
             }
             b(rowIdx1) = c1 * b(rowIdx1) + c2 * b(rowIdx2);
             b(rowIdx2) = -(c2 * b(rowIdx1)) + c1 * b(rowIdx2);
@@ -48,7 +49,7 @@ namespace NGivensRotations {
         if (a.GetSize1() != a.GetSize2()) {
             return false;
         }
-        for (size_t j = 0; j < a.GetSize2(); ++j) {
+        for (size_t j = 0; j < a.GetSize2() - 1; ++j) {
             if (!NullifyColumn(a, b, j)) {
                 return false;
             }
@@ -64,6 +65,6 @@ namespace NGivensRotations {
         return true;
     }
 
-    template bool SolveSystem<double>(TMatrix<double>& a, TVector<double>& b, TVector<double>& x);
+    template bool SolveSystem(TMatrix<double>& a, TVector<double>& b, TVector<double>& x);
 
 } // namespace NGivensRotations

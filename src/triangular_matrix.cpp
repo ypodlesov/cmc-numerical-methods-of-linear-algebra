@@ -3,7 +3,7 @@
 namespace NTriangularMatrix {
     
     template <typename T>
-    bool SolveSystem(TMatrix<T>& a, TVector<T>& b, TVector<T>& x) {
+    bool SolveSystem(const TMatrix<T>& a, const TVector<T>& b, TVector<T>& x) {
         if (!(TMatrix<T>::IsTriangular(a, ETriangularType::Upper) || a.GetSize1() != a.GetSize2())) {
             return false;
         }
@@ -38,7 +38,8 @@ namespace NTriangularMatrix {
         return true;
     }
 
-    template bool SolveSystem(TMatrix<double>& a, TVector<double>& b, TVector<double>& x);
+    template bool SolveSystem(const TMatrix<double>& a, const TVector<double>& b, TVector<double>& x);
 
 } // namespace NTriangularMatrix
+
 
