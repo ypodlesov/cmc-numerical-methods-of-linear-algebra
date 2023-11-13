@@ -7,3 +7,4 @@ set(CMAKE_CXX_FLAGS "-pedantic")
 
 set(LIBRARY SRC_LIB)
 add_subdirectory(src)
+add_subdirectory(tests)

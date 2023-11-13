@@ -1,6 +1,6 @@
 #include "triangular_matrix.h"
 
-namespace TriangularMatrix {
+namespace NTriangularMatrix {
     
     template <typename T>
     bool SolveSystem(TMatrix<T>& a, TVector<T>& b, TVector<T>& x) {
@@ -38,4 +38,7 @@ namespace TriangularMatrix {
         return true;
     }
 
-} // namespace TriangularMatrix
+    template bool SolveSystem(TMatrix<double>& a, TVector<double>& b, TVector<double>& x);
+
+} // namespace NTriangularMatrix
+

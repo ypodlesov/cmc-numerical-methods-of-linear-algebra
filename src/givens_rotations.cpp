@@ -1,4 +1,5 @@
 #include "givens_rotations.h"
+#include "triangular_matrix.h"
 
 #include <cmath>
 
@@ -33,12 +34,14 @@ namespace NGivensRotations {
                 return false;
             }
             for (size_t i = colIdx + 1; i < a.GetSize1(); ++i) {
-                ModifyRows(a, b, colIdx, colIdx, i);
+                if (!ModifyRows(a, b, colIdx, colIdx, i)) {
+                    return false;
+                }
             }
             return true;
         }
 
-    }
+    } // namespace
 
     template <typename T>
     bool SystemToTriangular(TMatrix<T>& a, TVector<T>& b) {
@@ -46,8 +49,21 @@ namespace NGivensRotations {
             return false;
         }
         for (size_t j = 0; j < a.GetSize2(); ++j) {
-            NullifyColumn(a, b, j);
+            if (!NullifyColumn(a, b, j)) {
+                return false;
+            }
         }
+        return true;
     }
+
+    template <typename T>
+    bool SolveSystem(TMatrix<T>& a, TVector<T>& b, TVector<T>& x) {
+        if (!SystemToTriangular(a, b) || !NTriangularMatrix::SolveSystem(a, b, x)) {
+            return false;
+        }
+        return true;
+    }
+
+    template bool SolveSystem<double>(TMatrix<double>& a, TVector<double>& b, TVector<double>& x);
 
 } // namespace NGivensRotations

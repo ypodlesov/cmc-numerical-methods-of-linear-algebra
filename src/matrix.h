@@ -80,3 +80,6 @@ TMatrix<T1> operator *(const TMatrix<T1>& a, const TMatrix<T2>& b);
 
 template <typename T1, typename T2>
 TMatrix<T1> operator *(const TMatrix<T1>& a, const T2 coeff);
+
+template <typename T>
+TVector<T> operator *(const TMatrix<T>& a, const TVector<T>& v);

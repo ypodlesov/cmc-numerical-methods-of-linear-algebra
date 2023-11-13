@@ -3,9 +3,9 @@
 #include "matrix.h"
 #include "vector.h"
 
-namespace TriangularMatrix {
+namespace NTriangularMatrix {
 
     template <typename T>
-    bool SolveSystem(TMatrix<T>& a, TVector<T>& b);
+    bool SolveSystem(const TMatrix<T>& a, const TVector<T>& b, TVector<T>& x);
 
-} // namespace TriangularMatrix
+} // namespace NTriangularMatrix

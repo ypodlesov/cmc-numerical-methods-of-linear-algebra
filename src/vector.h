@@ -28,6 +28,7 @@ public:
 
     static double Norm2(const TVector& v);
     static double InnerProd(const TVector& v, const TVector& u);
+    static TVector CreateRandom(const size_t size);
 
     ~TVector();
 

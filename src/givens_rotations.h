@@ -17,4 +17,7 @@ namespace NGivensRotations {
     template <typename T>
     bool SystemToTriangular(TMatrix<T>& a, TVector<T>& b);
 
+    template <typename T>
+    bool SolveSystem(TMatrix<T>& a, TVector<T>& b, TVector<T>& x);
+
 } // namespace NGivensRotations

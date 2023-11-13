@@ -3,6 +3,7 @@
 #include "vector.h"
 
 #include <cmath>
+#include <ctime>
 
 template <typename T>
 TVector<T>::TVector(size_t size) 
@@ -121,6 +122,7 @@ bool TVector<T>::Nullify() noexcept {
     for (size_t i = 0; i < Size; ++i) {
         Data[i] = 0;
     }
+    return true;
 }
 
 template <typename T>
@@ -143,6 +145,16 @@ double TVector<T>::InnerProd(const TVector<T>& v, const TVector<T>& u) {
         res += v(i) * u(i);
     }
     return res;
+}
+
+template <typename T>
+TVector<T> TVector<T>::CreateRandom(const size_t size) {
+    std::srand(std::time(nullptr));
+    TVector<T> v(size);
+    for (size_t i = 0; i < size; ++i) {
+        v(i) = std::rand();
+    }
+    return v;
 }
 
 template <typename T>
@@ -186,7 +198,7 @@ bool operator !=(const TVector<T>& a, const TVector<T>& b) {
     if (!a || !b) {
         throw(std::invalid_argument("Vector has no Data."));
     }
-    if (a.GetSize1() != b.GetSize2()) {
+    if (a.GetSize() != b.GetSize()) {
         throw(std::invalid_argument("Vectors sizes are different. Cannot apply +."));
     }
     return !(a == b);
@@ -236,8 +248,9 @@ T InnerProd(const TVector<T>& a, const TVector<T>& b) {
     T res{};
     size_t size = a.GetSize();
     for (size_t i = 0; i < size; ++i) {
-        res += a[i] * b[i];
+        res += a(i) * b(i);
     }
+    return res;
 }
 
 
@@ -246,6 +259,14 @@ double TVector<TMatrix<double>>::Norm2(const TVector<TMatrix<double>>& v) = dele
 
 template <>
 double TVector<TMatrix<double>>::InnerProd(const TVector<TMatrix<double>>& v, const TVector<TMatrix<double>>& u) = delete;
+
+template std::ostream& operator <<(std::ostream& out, const TVector<double>& v);
+template bool operator ==(const TVector<double>& a, const TVector<double>& b);
+template bool operator !=(const TVector<double>& a, const TVector<double>& b);
+template TVector<double> operator +(const TVector<double>& a, const TVector<double>& b);
+template TVector<double> operator -(const TVector<double>& a, const TVector<double>& b);
+template TVector<double> operator *(const TVector<double>& a, const double coeff);
+template double InnerProd(const TVector<double>& a, const TVector<double>& b);
 
 template class TVector<double>;
 template class TVector<TMatrix<double>>;

@@ -528,6 +528,21 @@ TMatrix<T1> operator *(const TMatrix<T1>& a, const T2 coeff) {
     return res *= coeff;
 }
 
+template <typename T>
+TVector<T> operator *(const TMatrix<T>& a, const TVector<T>& v) {
+    if (!a) {
+        throw(std::invalid_argument("Matrix has no Data."));
+    }
+    TVector<T> res(a.GetSize1());
+    res.Nullify();
+    for (size_t i = 0; i < res.GetSize(); ++i) {
+        for (size_t j = 0; j < a.GetSize2(); ++j) {
+            res(i) += a(i, j) * v(j);
+        }
+    }
+    return res;
+}
+
 template std::ostream& operator <<(std::ostream& out, const TMatrix<double>& matrix);
 template bool operator ==(const TMatrix<double>& a, const TMatrix<double>& b);
 template bool operator !=(const TMatrix<double>& a, const TMatrix<double>& b);
@@ -535,6 +550,8 @@ template TMatrix<double> operator +(const TMatrix<double>& a, const TMatrix<doub
 template TMatrix<double> operator -(const TMatrix<double>& a, const TMatrix<double>& b);
 template TMatrix<double> operator *(const TMatrix<double>& a, const TMatrix<double>& b);
 template TMatrix<double> operator *(const TMatrix<double>& a, const double coeff);
+template TVector<double> operator *(const TMatrix<double>& a, const TVector<double>& v);
+
 
 template std::ostream& operator <<(std::ostream& out, const TMatrix<TMatrix<double>>& matrix);
 template bool operator ==(const TMatrix<TMatrix<double>>& a, const TMatrix<TMatrix<double>>& b);
