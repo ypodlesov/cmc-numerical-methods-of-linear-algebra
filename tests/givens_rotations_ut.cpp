@@ -26,7 +26,7 @@ TEST(GivensRotations, SolveSystemTest) {
     EXPECT_TRUE(NGivensRotations::SolveSystem(a, b, x));
     ASSERT_TRUE(TMatrix<double>::IsTriangular(a, ETriangularType::Upper));
     TVector<double> res = a * x;
-    ASSERT_TRUE(RoughEq(TVector<double>::Norm2(res - b), 0.0, 1e-3));
+    ASSERT_TRUE(RoughEq(TVector<double>::Norm2(res - b), 0.0, 1e-6));
 }
 
 int main(int argc, char** argv) {
