@@ -12,4 +12,5 @@ target_sources(${LIBRARY}
         vector.cpp
         triangular_matrix.cpp
         givens_rotations.cpp
+        chebyshev_iter.cpp
 )

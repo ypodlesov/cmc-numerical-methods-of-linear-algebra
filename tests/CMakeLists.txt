@@ -21,7 +21,7 @@ include_directories(${GTest_INCLUDE_DIRS})
     
 add_executable(
     ${PROJECT_NAME}
-    givens_rotations_ut.cpp
+    test.cpp
 )
 
 # target_link_libraries(${PROJECT_NAME} GTest::gtest_main)

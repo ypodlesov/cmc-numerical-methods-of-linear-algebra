@@ -206,6 +206,24 @@ void TMatrix<T>::AssignColumn(size_t columnIdx, const TVector<T>& v) {
 }
 
 template <typename T>
+std::pair<T, T> TMatrix<T>::GetSpectrumBoundaries() const {
+    double left = 0;
+    double right = 0;
+    for (size_t i = 0; i < Size1; ++i) {
+        double r = 0;
+        for (size_t j = 0; j < Size2; ++j) {
+            if (j == i) {
+                continue;
+            }
+            r += fabs(Data[i * Size2 + j]);
+        }
+        left = std::min<T>(left, Data[i * Size2 + i] - r);
+        right = std::max<T>(right, Data[i * Size2 + i] + r);
+    }
+    return std::make_pair(left, right);
+}
+
+template <typename T>
 bool TMatrix<T>::IsTriangular(const TMatrix<T>& a, ETriangularType type) {
     if (!a) {
         throw(std::invalid_argument("Matrix has no Data."));
